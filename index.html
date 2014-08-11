@@ -8,6 +8,7 @@
     <script src="http://code.createjs.com/createjs-2013.12.12.min.js" type="application/javascript"></script>
     <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.8/fabric.min.js" type="application/javascript"></script>-->
     <script src="lucid/lucid.js"></script>
+    <script src="horserank.js" type="application/javascript"></script>
     <script src="hdt.js" type="application/javascript"></script>
 
 </head>
@@ -26,7 +27,6 @@
     <div class='row'>
         <button id="clear"> Clear! </button>
         <button id="done"> I'm done! </button>
-        <button id="undo"> Undo </button>
     </div>
     <div class='row'>
         <div class='small-4 columns'>
@@ -48,9 +48,9 @@
         </div>
         <div class='small-8 columns'>
             <ul>
-                <li>Big</li>
-                <li>Medium</li>
-                <li>Small</li>
+                <li class='brush' data-size='15'>Big</li>
+                <li class='brush' data-size='10'>Medium</li>
+                <li class='brush' data-size='5'>Small</li>
             </ul>
         </div>
     </div>
@@ -60,6 +60,7 @@
         </div>
         <div class='small-8 columns'>
             <ul>
+                <li style="cursor:url('images/argy_bee.png')" class='stamp' data-url="images/argy_bee.png">Argy</li>
             </ul>
         </div>
     </div>
@@ -69,6 +70,7 @@
         </div>
         <div class='small-8 columns'>
             <ul>
+                <li class='background' data-url="images/bg.png">Beegee</li>
             </ul>
         </div>
     </div>
