@@ -1,0 +1,46 @@
+
+
+body{
+    background: url('../design/grey_wash_wall.png') repeat;
+    font-family: 'Love Ya Like A Sister', Helvetica, Arial;
+}
+
+.main{
+    width: 706px;
+    margin: auto;
+
+    canvas{
+        background-color: white;
+        border: 2px dashed #666;
+    }
+}
+
+.left{
+    position: fixed; 
+    left: 0;
+    top: 0;
+    padding: 15px;
+    background-color: white;
+    height: 100%;
+    box-shadow: 10px 0px 10px #666;
+    margin-left: 1px solid #666;
+
+    .hidden_bin{
+        float: left;
+        width: 200px;
+        margin: 10px;
+        padding: 5px;
+    }
+    
+    h2{
+        cursor: pointer;
+    }
+
+    .current_color{
+        width: 50px;
+        height: 50px;
+        border: 2px solid black;
+        border-radius: 25px;
+    }
+
+}

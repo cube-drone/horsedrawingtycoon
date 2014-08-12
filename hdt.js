@@ -150,7 +150,12 @@ function horsecursor(elem, emitter){
     emitter.bind('setStamp', setStampCursor);
 }
 
-    
+function selectBin(toggle, group){
+    console.log("selectBin", toggle, group);
+    $("."+group).hide();
+    $("."+toggle).show();
+    $('.hidden_bin').show();
+}
 
 $(function() {
     var emitter = new LucidJS.EventEmitter();
@@ -158,9 +163,10 @@ $(function() {
 
     horsecanvas(canvas, emitter);
     horsecursor($('body'), emitter);
+    emitter.on("selectBin", selectBin);
     
     emitter.emit("changeSize", 10)
-    
+
     $("#done").click(function(){
         emitter.emit("completeCanvas");
     });
@@ -172,13 +178,15 @@ $(function() {
     });
     $(".brush").click(function(el){
         emitter.emit("changeSize", parseInt($(el.target).data('size'), 10))
-
     });
     $(".stamp").click(function(el){
         emitter.emit("setStamp", $(el.target).data('url'));
     });
     $(".background").click(function(el){
         emitter.emit("setBackground", $(el.target).data('url'));
+    });
+    $(".toggle").click(function(el){
+        emitter.emit("selectBin", $(el.target).data('toggle'), $(el.target).data('group'));
     });
 });
 

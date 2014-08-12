@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="foundation/css/foundation.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister|Pacifico|Crafty+Girls|Roboto:400,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style/style.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js" type="application/javascript"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="application/javascript"></script>
     <script src="http://code.createjs.com/createjs-2013.12.12.min.js" type="application/javascript"></script>
@@ -14,65 +15,53 @@
 </head>
 <body>
 
-    <div class='row'>
-        <div class='small-6 small-centered columns'>
-            <h1> HORSE DRAWING TYCOON </h1>
+    <div class="main">
+        <canvas id="horse" width="700" height="500"></canvas>
+        <div class='buttons'>
+            <button id="clear"> Clear! </button>
+            <button id="done"> I'm done! </button>
         </div>
     </div>
-    <div class='row'>
-        <div class='small-6 small-centered columns'>
-            <canvas id="horse" width="500" height="300"></canvas>
+   
+    <div class='left'>
+        <div class='hidden_bin' style='display:none;'>
+            <div class='store bins' style='display:none;'>
+                <p> store </p> 
+            </div>
+            <div class='colors bins' style='display:none;'>
+                <ul>
+                    <li class='color' data-color='#000000'>Black</li>
+                    <li class='color' data-color='#FFFFFF'>White</li>
+                    <li class='color' data-color='#FF0000'>Red</li>
+                    <li class='color' data-color='#00FF00'>Green</li>
+                    <li class='color' data-color='#0000FF'>Blue</li>
+                </ul>
+            </div>
+            <div class='brushes bins' style='display:none;'>
+                <ul>
+                    <li class='brush' data-size='15'>Big</li>
+                    <li class='brush' data-size='10'>Medium</li>
+                    <li class='brush' data-size='5'>Small</li>
+                </ul>
+            </div>
+            <div class='stamps bins' style='display:none;'>
+                <ul>
+                    <li style="cursor:url('images/argy_bee.png')" class='stamp' data-url="images/argy_bee.png">Argy</li>
+                </ul>
+            </div>
+            <div class='backgrounds bins' style='display:none;'>
+                <ul>
+                    <li class='background' data-url="images/bg.png">Beegee</li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class='row'>
-        <button id="clear"> Clear! </button>
-        <button id="done"> I'm done! </button>
-    </div>
-    <div class='row'>
-        <div class='small-4 columns'>
-            <h2>Colors:</h2>
-        </div>
-        <div class='small-8 columns'>
-            <ul>
-                <li class='color' data-color='#000000'>Black</li>
-                <li class='color' data-color='#FFFFFF'>White</li>
-                <li class='color' data-color='#FF0000'>Red</li>
-                <li class='color' data-color='#00FF00'>Green</li>
-                <li class='color' data-color='#0000FF'>Blue</li>
-            </ul>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='small-4 columns'>
-            <h2>Brushes:</h2>
-        </div>
-        <div class='small-8 columns'>
-            <ul>
-                <li class='brush' data-size='15'>Big</li>
-                <li class='brush' data-size='10'>Medium</li>
-                <li class='brush' data-size='5'>Small</li>
-            </ul>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='small-4 columns'>
-            <h2>Stamps:</h2>
-        </div>
-        <div class='small-8 columns'>
-            <ul>
-                <li style="cursor:url('images/argy_bee.png')" class='stamp' data-url="images/argy_bee.png">Argy</li>
-            </ul>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='small-4 columns'>
-            <h2>Backgrounds:</h2>
-        </div>
-        <div class='small-8 columns'>
-            <ul>
-                <li class='background' data-url="images/bg.png">Beegee</li>
-            </ul>
-        </div>
+
+        <h2 class='toggle' data-group='bins' data-toggle='store'>Store</h2>
+        <h2 class='toggle' data-group='bins' data-toggle='colors'>Color</h2>
+        <div class='current_color toggle' data-group='bins' data-toggle='colors'> </div>
+        <h2 class='toggle' data-group='bins' data-toggle='brushes'>Brushes</h2>
+        <h2 class='toggle' data-group='bins' data-toggle='stamps'>Stamps</h2>
+        <h2 class='toggle' data-group='bins' data-toggle='backgrounds'>Backgrounds</h2>
     </div>
 
 </body>

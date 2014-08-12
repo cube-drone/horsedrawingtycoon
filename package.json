@@ -1,0 +1,29 @@
+{
+  "name": "horsedrawingtycoon",
+  "version": "0.0.0",
+  "description": "Best application for drawing horses",
+  "main": "hdt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/classam/horsedrawingtycoon.git"
+  },
+  "keywords": [
+    "Horse",
+    "Drawing",
+    "Tycoon"
+  ],
+  "author": "Curtis Lassam",
+  "license": "Copyright Curtis Lassam 2014",
+  "bugs": {
+    "url": "https://github.com/classam/horsedrawingtycoon/issues"
+  },
+  "homepage": "https://github.com/classam/horsedrawingtycoon",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-sass": "~0.7.4",
+    "grunt-contrib-watch": "~0.6.1"
+  }
+}
