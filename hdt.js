@@ -150,20 +150,42 @@ function horsecursor(elem, emitter){
     emitter.bind('setStamp', setStampCursor);
 }
 
-function selectBin(toggle, group){
-    console.log("selectBin", toggle, group);
-    $("."+group).hide();
-    $("."+toggle).show();
-    $('.hidden_bin').show();
+function bin(emitter){
+    var duration = 150;
+
+    function selectBin(toggle, group){
+        console.log("selectBin", toggle, group);
+        $('.visible_bin').transition({x:"0px"}, duration, 'ease');
+        setTimeout(function(){
+            $("."+group).hide();
+            $("."+toggle).show();
+        }, duration);
+        $('.visible_bin').transition({x:"200px"}, duration, 'ease');
+    }
+
+    function closeBin(){
+        $('.visible_bin').transition({x:"0px"}, duration, 'ease');
+    }
+    emitter.on("selectBin", selectBin);
+    emitter.on("closeBin", closeBin);
+}
+
+function currentColor(element, emitter){
+    var changeColor = function(newcolor){
+        $(element).css({"background-color":newcolor});
+    }
+
+    emitter.on("changeColor", changeColor)
 }
 
 $(function() {
     var emitter = new LucidJS.EventEmitter();
     var canvas = document.getElementById("horse");
 
+    bin(emitter);
     horsecanvas(canvas, emitter);
     horsecursor($('body'), emitter);
-    emitter.on("selectBin", selectBin);
+    currentColor($('.current_color'), emitter);
     
     emitter.emit("changeSize", 10)
 
@@ -175,15 +197,19 @@ $(function() {
     });
     $(".color").click(function(el){
         emitter.emit("changeColor", $(el.target).data('color')) 
+        emitter.emit("closeBin")
     });
     $(".brush").click(function(el){
         emitter.emit("changeSize", parseInt($(el.target).data('size'), 10))
+        emitter.emit("closeBin")
     });
     $(".stamp").click(function(el){
         emitter.emit("setStamp", $(el.target).data('url'));
+        emitter.emit("closeBin")
     });
     $(".background").click(function(el){
         emitter.emit("setBackground", $(el.target).data('url'));
+        emitter.emit("closeBin")
     });
     $(".toggle").click(function(el){
         emitter.emit("selectBin", $(el.target).data('toggle'), $(el.target).data('group'));
