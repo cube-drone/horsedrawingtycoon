@@ -8,13 +8,71 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js" type="application/javascript"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="application/javascript"></script>
     <script src="http://code.createjs.com/createjs-2013.12.12.min.js" type="application/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js" type="application/javascript"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.9/jquery.transit.min.js" type="application/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="application/javascript"></script>
     <script src="lucid/lucid.js"></script>
     <script src="horserank.js" type="application/javascript"></script>
     <script src="hdt.js" type="application/javascript"></script>
+    <title>Horse Drawing Tycoon</title>
 
 </head>
 <body>
+    <script id="color-template" type="text/x-handlebars">
+        <div class='pure-g color-row'>
+            <div class='color pure-u-1-3' data-color='{{color1}}' style="background-color:{{color1}}" title="{{color1_name}}"></div>
+            <div class='color pure-u-1-3' data-color='{{color2}}' style="background-color:{{color2}}" title="{{color2_name}}"></div>
+            <div class='color pure-u-1-3' data-color='{{color3}}' style="background-color:{{color3}}" title="{{color3_name}}"></div>
+        </div>
+    </script>
+
+    <script id="stamp-template" type="text/x-handlebars">
+        <li class='stamp' style='background-image: url("{{url}}");' data-url="{{url}}" title="{{title}}"></li>
+    </script>
+    
+    <script id="background-template" type="text/x-handlebars">
+        <li class='background' style='background-image: url("{{url}}");' data-url="{{url}}" title="{{title}}"></li>
+    </script>
+
+    <script id="stable-template" type="text/x-handlebars">
+        <li class='stable' style='background-image: url("{{img}}");' data-url="{{img}}"></li>
+    </script>
+
+    <script id="store-template" type="text/x-handlebars">
+        <li class='store-item' id="{{id}}" style='background-image:url({{background_url}})'>
+            <div class='visible_when_available'>
+                <h3>{{name}} - {{price}}</h3>
+                <div class='storecolors'>
+                    <div class='storecolor' style='background-color:{{color1}}'></div>
+                    <div class='storecolor' style='background-color:{{color2}}'></div>
+                    <div class='storecolor' style='background-color:{{color3}}'></div>
+                </div>
+                <div class='storestamp' style='background-image:url({{stamp_url}})'></div>
+                <button class='pure-button storebutton' data-id="{{id}}">
+                    Buy!
+                </button>
+            </div>
+            <div class='lock'>
+                <img src="images/lock.png"></img>
+                <div class='price'>{{price}}</div>
+            </div>
+
+        </li>
+    </script>
+    
+    <script id="modal-template" type="text/x-handlebars">
+        <div id="overlay">
+        </div>
+
+        <div id="modal">
+            <img src="{{img}}">
+            <div class='modal-right'>
+                <canvas class='horsechart' height="300px" width="300px"></canvas>
+
+                <div class='horsedollars'>{{horsedollars}}</div>
+            </div>
+        </div>
+    </script>
 
     <div class="main">
         <canvas id="horse" width="700" height="500"></canvas>
@@ -26,34 +84,33 @@
    
     <div class='left'>
         <div class='hidden_bin'>
-            <div class='store bins' style='display:none;'>
-                <p> store </p> 
-            </div>
+            <ul class='store bins' style='display:none;'>
+            </ul>
             <div class='colors bins' style='display:none;'>
                 <div class='brushes pure-g'>
                     <div class='pure-u-1-5'>
                         <button class='brush pure-button' data-size='20'>
-                            <img src="images/20x20.png">
+                            <img src="images/brushes/20x20.png">
                         </button>
                     </div>
                     <div class='pure-u-1-5'>
                         <button class='brush pure-button' data-size='15'>
-                            <img src="images/15x15.png">
+                            <img src="images/brushes/15x15.png">
                         </button>
                     </div>
                     <div class='pure-u-1-5'>
                         <button class='brush pure-button' data-size='10'>
-                            <img src="images/10x10.png">
+                            <img src="images/brushes/10x10.png">
                         </button>
                     </div>
                     <div class='pure-u-1-5'>
                         <button class='brush pure-button' data-size='5'>
-                            <img src="images/5x5.png">
+                            <img src="images/brushes/5x5.png">
                         </button>
                     </div>
                     <div class='pure-u-1-5'>
                         <button class='brush pure-button' data-size='1'>
-                            <img src="images/1x1.png">
+                            <img src="images/brushes/1x1.png">
                         </button>
                     </div>
                 </div>
@@ -62,32 +119,37 @@
                     <div class='color pure-u-1-3' data-color='#999999' style="background-color:#999999" title="Grey"></div>
                     <div class='color pure-u-1-3' data-color='#ffffff' style="background-color:#ffffff" title="White"></div>
                 </div>
-                <div class='pure-g color-row'>
-                    <div class='color pure-u-1-3' data-color='#ff0000' style="background-color:#ff0000" title="Red"></div>
-                    <div class='color pure-u-1-3' data-color='#00ff00' style="background-color:#00ff00" title="Green"></div>
-                    <div class='color pure-u-1-3' data-color='#0000ff' style="background-color:#0000ff" title="Blue"></div>
-                </div>
             </div>
-            <div class='stamps bins' style='display:none;'>
-                <ul>
-                    <li style="cursor:url('images/argy_bee.png')" class='stamp' data-url="images/argy_bee.png">Argy</li>
-                </ul>
-            </div>
-            <div class='backgrounds bins' style='display:none;'>
-                <ul>
-                    <li class='background' data-url="images/bg.png">Beegee</li>
-                </ul>
-            </div>
+            <ul class='stamps bins' style='display:none;'>
+                <li class='stamp' style='background-image: url("images/stamps/bw_horse_1.png");' data-url="images/stamps/bw_horse_1.png" title="Neigh"></li>
+                <li class='stamp' style='background-image: url("images/stamps/bw_horse_2.png");' data-url="images/stamps/bw_horse_2.png" title="Neigh"></li>
+                <!--
+                <li class='stamp' style='background-image: url("images/stamps/bw_horse_5.png");' data-url="images/stamps/bw_horse_5.png" title="Neigh"></li>
+                <li class='stamp' style='background-image: url("images/stamps/bw_horse_6.png");' data-url="images/stamps/bw_horse_6.png" title="Neigh"></li>
+                -->
+            </ul>
+            <ul class='stables bins' style='display:none;'>
+                <li class='stable' style='background-image: url("images/stable.png")' data-url="images/stable.png"></li>
+            </ul>
+            <ul class='backgrounds bins' style='display:none;'>
+                <li class='background' style='background-image: url("images/backgrounds/linedpaper.png")' data-url="images/backgrounds/linedpaper.png" title="Lined Paper"></li>
+                <li class='background' style='background-image: url("images/backgrounds/grey.png")' data-url="images/backgrounds/grey.png" title="Grey Grid"></li>
+            </ul>
         </div>
         <nav class='visible_bin'>
+            <div class='horsecoins'><span class='horsecounter'>0</span> <img src="images/horsedolla.png"></img></div>
             <h2 class='toggle' data-group='bins' data-toggle='store'>Store</h2>
-            <h2 class='toggle' data-group='bins' data-toggle='stable'>Stable</h2>
+            <h2 class='toggle' data-group='bins' data-toggle='stables'>Stable</h2>
             <div class='current_color toggle' data-group='bins' data-toggle='colors'> </div>
             <h2 class='toggle' data-group='bins' data-toggle='stamps'>Stamps</h2>
             <h2 class='toggle' data-group='bins' data-toggle='backgrounds'>Backgrounds</h2>
-            <h2 class='toggle' data-group='bins' data-toggle='achievements'>Achievements</h2>
         </nav>
     </div>
+            
+    <button class='reset'> 
+        Reset
+    </button>
+
 
 </body>
 </html>

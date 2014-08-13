@@ -1,13 +1,61 @@
+#overlay {
+    cursor: pointer;
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    opacity: 0.2;
+}
 
+#modal{
+    cursor: pointer;
+    position: fixed;
+    z-index: 150;
+    top: 10px;
+    left: 250px;
+    background-color: white;
+    border: 2px solid black;
+    padding: 10px;
+    width: 725px;
+    height: 305px;
+
+    img{
+        float: left;
+        height: 300px;
+    }
+
+    .modal-right{
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
+
+    canvas{
+        border: none;
+    }
+
+    .horsedollars{
+        position: absolute;
+        top: 70px;
+        right: 118px;
+        font-size: 90pt;
+        font-weight: bold;
+        font-family: "Roboto", Helvetica, Arial;
+    }
+
+}
 
 body{
-    background: url('../design/grey_wash_wall.png') repeat;
+    background: url('../images/design/grey_wash_wall.png') repeat;
     font-family: 'Love Ya Like A Sister', Helvetica, Arial;
 }
 
 .main{
-    width: 706px;
-    margin: auto;
+    margin-left: 400px;
+    margin-top: 20px;
 
     canvas{
         background-color: white;
@@ -29,7 +77,7 @@ body{
         top: 0;
         background-color: white;
         height: 100%;
-        width: 200px;
+        width: 205px;
         margin: 0;
         padding: 5px;
         overflow: scroll;
@@ -61,12 +109,90 @@ body{
         border-radius: 25px;
         background-color: black;
     }
+
+    .toggle{
+        opacity: 0.8;
+    }
+    .toggle:hover{
+        opacity: 1;
+    }
+
+    .horsecoins{
+        font-family: "Roboto", Helvetica, Arial;
+        font-size: 35pt;
+        img{
+            vertical-align: middle;
+            height: 50px;
+            width: 50px;
+            margin-top: 0px;
+        }
+    }
+    
 }
 
+.reset{
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+}
+
+//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js
 .pure-g > div {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+.store{
+    list-style-type: none;
+    font-family: "Roboto", Helvetica, Arial;
+    overflow: hidden;
+    margin: 5px;
+    padding-left: 0;
+    .store-item{
+        border: 1px solid #999;
+        border-radius: 5px;
+        margin-top: 10px;
+        h3{
+            margin: 3px;
+            padding: 2px;
+        }
+    }
+    .storecolors{
+        float: right;
+        margin-right: -5px;
+
+        .storecolor{
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            margin-bottom: -5px;
+        }
+    }
+    .storestamp{
+        width: 125px;
+        height: 80px;
+        margin-bottom: 1px solid #666;
+    }
+    .storebutton{
+        width: 100%;
+    }
+    .lock{
+        position: relative;
+        
+        img{
+            width: 120px;
+            margin-left: 30px;
+        }
+        .price{
+            position: absolute;
+            text-align: center;
+            left: 75px;
+            top: 45px;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    }
 }
 
 .color-row{
@@ -75,9 +201,13 @@ body{
         cursor: pointer;
         width: 50px;
         height: 50px;
-        margin: 5px;
+        margin: 5px;//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js
         border: 2px solid black;
         border-radius: 40px;
+        opacity: 0.8;
+    }
+    .color:hover{
+        opacity: 1;
     }
 }
 
@@ -90,3 +220,54 @@ body{
 
 }
 
+.stamps{
+    .stamp{
+        background-position: center;
+        background-repeat: no-repeat;
+        list-style-type: none;
+        height: 125px;
+        width: 125px;
+        border: 1px solid white;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    .stamp:hover{
+        border: 1px solid #EEE;
+        border-radius: 10px;
+    }
+}
+
+.backgrounds{
+    .background{
+        background-repeat: repeat;
+        list-style-type: none;
+        height: 125px;
+        width: 125px;
+        background-size: 125px 125px;
+        border: 5px solid #999;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    .background:hover{
+        border: 5px solid #333;
+        border-radius: 10px;
+    }
+}
+
+.stables{
+    padding-left: 10px;
+    .stable{
+        background-repeat: repeat;
+        background-size: 150px 100px;
+        list-style-type: none;
+        height: 100px;
+        width: 150px;
+        border: 5px solid #999;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    .stable:hover{
+        border: 5px solid #333;
+        border-radius: 10px;
+    }
+}
