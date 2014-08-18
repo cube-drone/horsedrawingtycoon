@@ -556,7 +556,7 @@ $(function() {
     var emitter = new LucidJS.EventEmitter();
     
     horsecanvas($('.main'), emitter);
-    horsecursor($('.main'), emitter);
+    horsecursor($('#horse'), emitter);
 
     bin($('.left'), emitter);
     currentColor($('.current_color'), emitter);
