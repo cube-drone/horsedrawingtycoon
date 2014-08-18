@@ -1,3 +1,5 @@
 Thumbs.db
 node_modules
 .sass-cache
+twitkey.py
+*.pyc

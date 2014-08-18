@@ -1,4 +1,7 @@
 
+var HORSEPICS_SERVER = "http://localhost:8080"
+var HORSEPICS_SERVER = "http://hrse.pics/"
+
 function horsecanvas(element, eventhandler){
     var canvas, stage;
     var context;
@@ -608,6 +611,23 @@ function stateRunRadio(element, emitter){
 
 }
 
+function infinityHorse(emitter){
+    var sendImage = function(img){
+        $.ajax({
+            url: HORSEPICS_SERVER, 
+            type: "POST", 
+            crossDomain: true,
+            data: {image:img},
+            success: function(response){
+                console.log("SUCCESS");
+                console.log(response);
+            }
+        });
+    }
+
+    emitter.on('newImage', sendImage);
+}
+
 
 
 $(function() {
@@ -626,6 +646,7 @@ $(function() {
     horseDollaDollaBill($('.horsecounter'), emitter);
     chartModal(emitter);
     stateRunRadio($(".reset"), emitter);
+    infinityHorse(emitter);
     
     emitter.emit("changeSize", 10);
     emitter.emit("setBackground", "images/backgrounds/photoshop.png");
