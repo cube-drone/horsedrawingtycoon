@@ -293,13 +293,26 @@ function stableSelector(element, emitter){
     var template = Handlebars.compile(source);
 
     var clickStable = function(el){
-        emitter.emit("clearCanvas");
-        emitter.emit("setBackground", $(el.target).data('url'));
+        if( $(el.target).data('url') !== undefined){
+            emitter.emit("clearCanvas");
+            emitter.emit("setBackground", $(el.target).data('url'));
+        }
+    }
+
+    var deleteFromStable = function(el){
+        var node = $($(el)[0].currentTarget).parent();
+        var url = node.data('url');
+        node.transition({'scale':0.1}, 500, 'ease');
+        setTimeout(function(){node.hide()}, 500)
+        emitter.emit("deleteImage", url);
     }
 
     var newImage = function(img){
         var img_rendered = template({'img': img});
-        $(element).append($(img_rendered).click(clickStable));
+        var node = $(img_rendered);
+        node.click(clickStable);
+        node.find('.trashstable').click(deleteFromStable);
+        $(element).append(node);
     }
 
     emitter.on("newImage", newImage);
@@ -490,6 +503,18 @@ function stateRunRadio(element, emitter){
         images.push(img);
         set('images', images);
     }
+    var deleteImage = function(url){
+        var images = get('images');
+        if(images === undefined){
+            return;
+        }
+        // this right here should be an expensive as hell operation
+        var urlIndex = images.indexOf(url);
+        if( urlIndex > -1 ){
+            images.splice(urlIndex, 1);
+        }
+        set('images', images);
+    }
     var reset = function(){
         set('money', 0);
         set('purchases', []);
@@ -518,6 +543,7 @@ function stateRunRadio(element, emitter){
     emitter.on('update', updateMoney);
     emitter.on('buy', addPurchase);
     emitter.on('newImage', addImage);
+    emitter.on('deleteImage', deleteImage);
     emitter.on('reset', reset);
 
     element.click(reset);
