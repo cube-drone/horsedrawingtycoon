@@ -144,8 +144,9 @@ body {
     .store .lock .price {
       position: absolute;
       text-align: center;
-      left: 75px;
+      left: 57px;
       top: 45px;
+      width: 60px;
       font-size: 40px;
       font-weight: bold; }
 
