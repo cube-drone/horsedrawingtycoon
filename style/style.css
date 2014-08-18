@@ -1,0 +1,209 @@
+#overlay {
+  cursor: pointer;
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  opacity: 0.2; }
+
+#modal {
+  cursor: pointer;
+  position: fixed;
+  z-index: 150;
+  top: 10px;
+  left: 250px;
+  background-color: white;
+  border: 2px solid black;
+  padding: 10px;
+  width: 725px;
+  height: 305px; }
+  #modal img {
+    float: left;
+    height: 300px; }
+  #modal .modal-right {
+    position: absolute;
+    top: 2px;
+    right: 2px; }
+  #modal canvas {
+    border: none; }
+  #modal .horsedollars {
+    position: absolute;
+    top: 70px;
+    right: 118px;
+    font-size: 90pt;
+    font-weight: bold;
+    font-family: "Roboto", Helvetica, Arial; }
+
+body {
+  background: url("../images/design/grey_wash_wall.png") repeat;
+  font-family: 'Love Ya Like A Sister', Helvetica, Arial; }
+
+.main {
+  margin-left: 400px;
+  margin-top: 20px; }
+  .main canvas {
+    background-color: white;
+    border: 2px dashed #666; }
+
+.left {
+  cursor: normal;
+  position: fixed;
+  left: 0;
+  height: 100%; }
+  .left .hidden_bin {
+    position: fixed;
+    padding: 10px;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    background-color: white;
+    height: 100%;
+    width: 205px;
+    margin: 0;
+    padding: 5px;
+    overflow: scroll; }
+  .left .visible_bin {
+    position: fixed;
+    padding: 10px;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    background-color: white;
+    height: 100%;
+    width: 210px;
+    box-shadow: 0px 0px 25px #666;
+    margin-left: 1px solid #666;
+    margin-right: 1px solid #666; }
+  .left h2 {
+    cursor: pointer; }
+  .left .current_color {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: black; }
+  .left .toggle {
+    opacity: 0.8; }
+  .left .toggle:hover {
+    opacity: 1; }
+  .left .horsecoins {
+    font-family: "Roboto", Helvetica, Arial;
+    font-size: 35pt; }
+    .left .horsecoins img {
+      vertical-align: middle;
+      height: 50px;
+      width: 50px;
+      margin-top: 0px; }
+
+.reset {
+  position: fixed;
+  bottom: 5px;
+  right: 5px; }
+
+.pure-g > div {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.store {
+  list-style-type: none;
+  font-family: "Roboto", Helvetica, Arial;
+  overflow: hidden;
+  margin: 5px;
+  padding-left: 0; }
+  .store .store-item {
+    border: 1px solid #999;
+    border-radius: 5px;
+    margin-top: 10px; }
+    .store .store-item h3 {
+      margin: 3px;
+      padding: 2px; }
+  .store .storecolors {
+    float: right;
+    margin-right: -5px; }
+    .store .storecolors .storecolor {
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      margin-bottom: -5px; }
+  .store .storestamp {
+    width: 125px;
+    height: 80px;
+    margin-bottom: 1px solid #666; }
+  .store .storebutton {
+    width: 100%; }
+  .store .lock {
+    position: relative; }
+    .store .lock img {
+      width: 120px;
+      margin-left: 30px; }
+    .store .lock .price {
+      position: absolute;
+      text-align: center;
+      left: 75px;
+      top: 45px;
+      font-size: 40px;
+      font-weight: bold; }
+
+.color-row {
+  padding: 5px 0 5px 0; }
+  .color-row .color {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: 2px solid black;
+    border-radius: 40px;
+    opacity: 0.8; }
+  .color-row .color:hover {
+    opacity: 1; }
+
+.brushes {
+  padding: 30px 0 30px 0; }
+  .brushes .brush {
+    height: 50px; }
+
+.stamps .stamp {
+  background-position: center;
+  background-repeat: no-repeat;
+  list-style-type: none;
+  height: 125px;
+  width: 125px;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-bottom: 5px; }
+.stamps .stamp:hover {
+  border: 1px solid #EEE;
+  border-radius: 10px; }
+
+.backgrounds .background {
+  background-repeat: repeat;
+  list-style-type: none;
+  height: 125px;
+  width: 125px;
+  background-size: 125px 125px;
+  border: 5px solid #999;
+  border-radius: 10px;
+  margin-bottom: 5px; }
+.backgrounds .background:hover {
+  border: 5px solid #333;
+  border-radius: 10px; }
+
+.stables {
+  padding-left: 10px; }
+  .stables .stable {
+    background-repeat: repeat;
+    background-size: 150px 100px;
+    list-style-type: none;
+    height: 100px;
+    width: 150px;
+    border: 5px solid #999;
+    border-radius: 10px;
+    margin-bottom: 5px; }
+  .stables .stable:hover {
+    border: 5px solid #333;
+    border-radius: 10px; }
