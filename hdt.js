@@ -10,10 +10,14 @@ function horsecanvas(element, eventhandler){
     var color;
     var stroke;
     var stamps;
+    var undo_queue;
+    var undo_justclicked;
+    var incanvas;
     var hitarea;
 
     canvas = element.find("canvas")[0];
     context = canvas.getContext("2d");
+    incanvas = false;
     color = "#000000";
     mode = "stroke";
     stroke = 10;
@@ -27,12 +31,22 @@ function horsecanvas(element, eventhandler){
     drawingCanvas = new createjs.Shape();
     stage.addChild(drawingCanvas);
     stamps = []
+    undo_queue = []
     
     hitArea = new createjs.Shape();
     hitArea.graphics.beginFill("#000").drawRect(0, 0, canvas.width, canvas.height);
 
+    function pushToUndoQueue(){
+        undo_justclicked = false;
+        var img = canvas.toDataURL("image/png");
+        undo_queue.push(img);
+        if (undo_queue.length > 10){
+            undo_queue.shift();
+        }
+    }
+
     function handleMouseDown(event) {
-        if( mode == 'stroke'){
+        if( mode == 'stroke' && incanvas){
             oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
             oldMidPt = oldPt;
             stage.addEventListener("stagemousemove" , handleMouseMove);
@@ -45,25 +59,30 @@ function horsecanvas(element, eventhandler){
         }
     }
     function handleMouseMove(event) {
-        var midPt = new createjs.Point(oldPt.x + stage.mouseX>>1, oldPt.y+stage.mouseY>>1);
-        drawingCanvas.graphics.clear()
-            .setStrokeStyle(stroke, 'round', 'round')
-            .beginStroke(color)
-            .moveTo(midPt.x, midPt.y)
-            .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
-        oldPt.x = stage.mouseX;
-        oldPt.y = stage.mouseY;
-        oldMidPt.x = midPt.x;
-        oldMidPt.y = midPt.y;
-        stage.update();
+        if(incanvas){
+            var midPt = new createjs.Point(oldPt.x + stage.mouseX>>1, oldPt.y+stage.mouseY>>1);
+            drawingCanvas.graphics.clear()
+                .setStrokeStyle(stroke, 'round', 'round')
+                .beginStroke(color)
+                .moveTo(midPt.x, midPt.y)
+                .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+            oldPt.x = stage.mouseX;
+            oldPt.y = stage.mouseY;
+            oldMidPt.x = midPt.x;
+            oldMidPt.y = midPt.y;
+            stage.update();
+        }
     }
     function handleMouseUp(event) {
         if(mode == 'stroke'){
             stage.removeEventListener("stagemousemove" , handleMouseMove);
+            if( incanvas ){
+                pushToUndoQueue();
+            }
         }
     }
     function handleClick(event) {
-        if(mode == 'stamp'){
+        if(mode == 'stamp' && incanvas){
             console.log("STAMPIN", stamp_url, stage.mouseX, stage.mouseY);
             var bitmap = new createjs.Bitmap(stamp_url);
             bitmap.x = stage.mouseX;
@@ -72,6 +91,8 @@ function horsecanvas(element, eventhandler){
             stage.update();
             stamps.push(stamp_url);
             eventhandler.emit("stamped", stamp_url);
+            console.log("stamp click");
+            pushToUndoQueue();
         }
     }
     
@@ -110,7 +131,7 @@ function horsecanvas(element, eventhandler){
         eventhandler.emit('addMoney', horsedollars);
         eventhandler.emit('clearCanvas');
     }
-    function clearCanvas(){
+    function clearCanvas(dont_clear_everything){
         console.log("clearing canvas");
         
         /* http://stackoverflow.com/questions/2142535/how-to-clear-the-canvas-for-redrawing */
@@ -129,8 +150,11 @@ function horsecanvas(element, eventhandler){
         drawingCanvas.hitArea = hitArea;
         drawingCanvas.on("click", handleClick);
         stage.addChild(drawingCanvas);
-        
-        stamps = [];
+       
+        if( dont_clear_everything === undefined ){
+            stamps = [];
+            undo_queue = [];
+        }
     }
     function setStamp(url){
         console.log('stamp set');
@@ -147,6 +171,21 @@ function horsecanvas(element, eventhandler){
             stage.update();
         }
     }
+    function undo(){
+        console.log("undo!");
+        if( !undo_justclicked ){
+            undo_queue.pop();
+            undo_justclicked = true;
+        }
+        if( undo_queue.length > 0 ){
+            var q = undo_queue.pop();
+            clearCanvas(true);
+            setBackground(q);
+        }
+        else{
+            clearCanvas();
+        }
+    }
 
     eventhandler.bind('changeColor', changeColor);
     eventhandler.bind('changeSize', changeSize);
@@ -154,12 +193,20 @@ function horsecanvas(element, eventhandler){
     eventhandler.bind('completeCanvas', completeCanvas);
     eventhandler.bind('setStamp', setStamp);
     eventhandler.bind('setBackground', setBackground);
+    eventhandler.bind('undo', undo);
 
     stage.addEventListener("stagemousedown", handleMouseDown);
     stage.addEventListener("stagemouseup", handleMouseUp);
     drawingCanvas.hitArea = hitArea;
     drawingCanvas.on("click", handleClick);
     stage.update();
+
+    $(element).find("#horse").mouseenter(function(){
+        incanvas = true;
+    });
+    $(element).find("#horse").mouseleave(function(){
+        incanvas = false;
+    });
     
     $(element).find("#done").click(function(){
         eventhandler.emit("completeCanvas");
@@ -167,6 +214,10 @@ function horsecanvas(element, eventhandler){
 
     $(element).find("#clear").click(function(){
         eventhandler.emit("clearCanvas");
+    });
+
+    $(element).find("#undo").click(function(){
+        eventhandler.emit("undo");
     });
 }
 
@@ -396,7 +447,6 @@ function storeManager(element, emitter){
     emitter.on("buy", buy);
     emitter.on("buyWithoutPaying", buyWithoutPaying);
     emitter.on("update", update);
-
 
     $.each(item_id_list, function(i, id){
         addItem(items[id]);

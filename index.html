@@ -95,8 +95,9 @@
     <div class="main">
         <canvas id="horse" width="700" height="500"></canvas>
         <div class='buttons'>
-            <button id="clear"> Clear! </button>
-            <button id="done"> I'm done! </button>
+            <button id="clear" title="Clear"> <img src="images/design/cancel.png"> </button>
+            <button id="undo" title="Undo"> <img src="images/design/undo.png"> </button>
+            <button id="done" title="I'm done!"> <img src="images/design/done.png"> </button>
         </div>
     </div>
    
@@ -155,20 +156,20 @@
             </ul>
         </div>
         <nav class='visible_bin'>
-            <div class='toggle horsecoins' data-toggle='store' data-group='bins'>
+            <div class='toggle horsecoins' data-toggle='store' data-group='bins' title='HorseDollars'>
                 <span class='horsecounter'>0</span>
                 <img src="images/design/horsecoin_95.png"></img>
             </div>
-            <h2 class='toggle' data-group='bins' data-toggle='stables'>
+            <h2 class='toggle' data-group='bins' data-toggle='stables' title='Completed Horses'>
                 <img src="images/design/stable.png">
             </h2>
-            <div class='current_color toggle' data-group='bins' data-toggle='colors'>
+            <div class='current_color toggle' data-group='bins' data-toggle='colors' title='Colors'>
                 <img src="images/design/brush.png">
             </div>
-            <h2 class='toggle' data-group='bins' data-toggle='stamps'>
+            <h2 class='toggle' data-group='bins' data-toggle='stamps' title='Stamps'>
                 <img src="images/design/stamp.png">
             </h2>
-            <h2 class='toggle' data-group='bins' data-toggle='backgrounds'>
+            <h2 class='toggle' data-group='bins' data-toggle='backgrounds' title='Backgrounds'>
                 <img src="images/design/background.png">
             </h2>
         </nav>
