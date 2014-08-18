@@ -204,7 +204,15 @@ function bin(element, emitter){
     emitter.on("closeBin", closeBin);
     
     $(element).find(".toggle").click(function(el){
-        emitter.emit("selectBin", $(el.target).data('toggle'), $(el.target).data('group'));
+        var toggle = $(el.target).data('toggle');
+        if (toggle === undefined){
+            toggle = $(el.target).parent().data('toggle');
+        }
+        var group = $(el.target).data('group');
+        if (group === undefined){
+            group = $(el.target).parent().data('group');
+        }
+        emitter.emit("selectBin", toggle, group);
     });
     
     $(".main").click(function(el){
