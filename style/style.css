@@ -206,3 +206,7 @@ body {
   .stables .stable:hover {
     border: 5px solid #333;
     border-radius: 10px; }
+  .stables .trashstable {
+    padding: 2px; }
+    .stables .trashstable img {
+      width: 30px; }
