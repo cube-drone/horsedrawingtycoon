@@ -86,7 +86,7 @@ var items = { 'argy':
         'stamp_url': 'images/stamps/twilight.png',
         'stamp_name': 'Mark',
         'color1': '#d098e4', 
-        'color1_name': 'Parple',
+        'color1_name': 'Light urple',
         'color2': '#24386d',
         'color2_name': 'Dark Blue',
         'color3': '#f64188',
