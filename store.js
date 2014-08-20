@@ -18,7 +18,7 @@ var items = { 'argy':
     {
         'id':'apple',
         'price': 5,
-        'name': 'Twilight', 
+        'name': 'Apple', 
         'stamp_url': 'images/stamps/apple.png',
         'stamp_name': 'Apple',
         'color1': '#9a1419', 
