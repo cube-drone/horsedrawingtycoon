@@ -86,14 +86,30 @@ var items = { 'argy':
         'stamp_url': 'images/stamps/twilight.png',
         'stamp_name': 'Mark',
         'color1': '#d098e4', 
-        'color1_name': 'Purple',
+        'color1_name': 'Parple',
         'color2': '#24386d',
         'color2_name': 'Dark Blue',
         'color3': '#f64188',
         'color3_name': 'Pink',
         'background_url': 'images/backgrounds/little_pony.png',
         'background_name': 'Chestnut',
+    },
+    'hay':
+    {
+        'id':'hay',
+        'price': 25,
+        'name': 'HAY GUYS',
+        'stamp_url': 'images/stamps/hay.png',
+        'stamp_name': 'Hay',
+        'color1': '#faf5a0', 
+        'color1_name': 'Mello Yello',
+        'color2': '#efe63e',
+        'color2_name': 'Superior Yellow',
+        'color3': '#bcb529',
+        'color3_name': 'Mustard Town',
+        'background_url': 'images/backgrounds/field.png',
+        'background_name': 'Field',
     }
 };
 
-var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight'] 
+var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight', 'hay'] 
