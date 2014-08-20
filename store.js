@@ -14,6 +14,22 @@ var items = { 'argy':
         'background_url': 'images/backgrounds/photoshop.png',
         'background_name': 'Photosharp'
     },
+    'apple':
+    {
+        'id':'apple',
+        'price': 5,
+        'name': 'Twilight', 
+        'stamp_url': 'images/stamps/apple.png',
+        'stamp_name': 'Apple',
+        'color1': '#9a1419', 
+        'color1_name': 'Crimson',
+        'color2': '#e92d34',
+        'color2_name': 'Red',
+        'color3': '#2c865b',
+        'color3_name': 'leaf',
+        'background_url': 'images/backgrounds/background_apple.png',
+        'background_name': 'Apple',
+    },
     'palomino':
     {
         'id':'palomino',
@@ -65,7 +81,7 @@ var items = { 'argy':
     'twilight':
     {
         'id':'twilight',
-        'price': 9,
+        'price': 20,
         'name': 'Twilight', 
         'stamp_url': 'images/stamps/twilight.png',
         'stamp_name': 'Mark',
@@ -80,4 +96,4 @@ var items = { 'argy':
     }
 };
 
-var item_id_list = ['argy', 'palomino', 'bay', 'chestnut', 'twilight'] 
+var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight'] 
