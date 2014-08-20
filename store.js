@@ -109,7 +109,23 @@ var items = { 'argy':
         'color3_name': 'Mustard Town',
         'background_url': 'images/backgrounds/field.png',
         'background_name': 'Field',
+    },
+    'bow':
+    {
+        'id':'bow',
+        'price': 50,
+        'name': 'First Place',
+        'stamp_url': 'images/stamps/bow.png',
+        'stamp_name': 'Bo Derek',
+        'color1': '#f7941d', 
+        'color1_name': 'Burnt Umber',
+        'color2': '#00bff3',
+        'color2_name': 'Nissan Skyline Type R',
+        'color3': '#222222',
+        'color3_name': 'Charcoal',
+        'background_url': 'images/backgrounds/random_horse.png',
+        'background_name': 'Field',
     }
 };
 
-var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight', 'hay'] 
+var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight', 'hay', 'charcoal'] 
