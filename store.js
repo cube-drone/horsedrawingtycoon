@@ -128,4 +128,4 @@ var items = { 'argy':
     }
 };
 
-var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight', 'hay', 'charcoal'] 
+var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight', 'hay', 'bow'] 
