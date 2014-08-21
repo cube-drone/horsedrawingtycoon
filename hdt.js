@@ -105,6 +105,7 @@ function horsecanvas(element, eventhandler){
         color = newcolor;
     }
     function changeSize(newsize){
+        console.log("change size:", newsize);
         mode = 'stroke';
         stroke = newsize;
     }
@@ -285,11 +286,16 @@ function currentColor(element, emitter){
 function colorSelector(element, emitter){
     var source = $("#color-template").html();
     var template = Handlebars.compile(source);
+    var lastSize = 10;
 
     var clickColor = function(el){
         emitter.emit("changeColor", $(el.target).data('color')) 
-        emitter.emit("changeSize", 10)
+        emitter.emit("changeSize", lastSize)
         emitter.emit("closeBin")
+    }
+    
+    var changeSize = function(size){
+        lastSize = size;
     }
     
     var addColorRow = function(color1, color1_name, color2, color2_name, color3, color3_name){
@@ -302,13 +308,19 @@ function colorSelector(element, emitter){
         $(element).append($(color_row).click(clickColor));
     }
     
+    emitter.on('changeSize', changeSize);
     emitter.on("addColorRow", addColorRow);
 
     $(element).find(".color").click(clickColor);
     
     $(element).find(".brush").click(function(el){
-        emitter.emit("changeSize", parseInt($(el.target).data('size'), 10))
-        emitter.emit("closeBin")
+        var size = parseInt($(el.target).data('size'), 10);
+        if ($(el.target).data('size') === undefined){
+            size = parseInt($(el.target).parent().data('size'), 10);
+        }
+        console.log("brush clicked", size);
+        emitter.emit("changeSize", size)
+        emitter.emit("closeBin");
     });
 }
 
