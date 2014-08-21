@@ -51,8 +51,38 @@
 .messages{
     position: fixed;
     bottom: 0px;
-    width: 500px;
-    margin: auto;
+    left: 650px;
+    width: 350px;
+    z-index: 200;
+
+    .message{
+        background: #DDD;
+        border: 3px solid #666;
+        color: #666;
+        border-radius: 2px;
+        width: 350px;
+        padding: 10px;
+        font-family: "Roboto", Helvetica, Arial;
+        margin-bottom: 5px;
+
+        img{
+            float: left;
+            width: 50px;
+            border: 2px solid #666;
+            margin-right: 10px;
+        }
+        h2{
+            padding-top: 3px;
+            margin-top: 0;
+            font-size: large;
+            margin-bottom: 5px;
+        }
+        p{
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+    }
 }
 
 body{

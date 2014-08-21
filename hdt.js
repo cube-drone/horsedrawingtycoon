@@ -594,23 +594,41 @@ function stateRunRadio(element, emitter){
         set('images', []);
         location.reload();
     }
-    
+
+    var all_undefined = true;
+
     var loadedMoney = get('money');
     if (loadedMoney !== undefined){
+        all_undefined = false;
         console.log('setting money:', loadedMoney);
         emitter.emit('setMoney', loadedMoney);
     }
     var loadedPurchases = get('purchases');
     if (loadedPurchases !== undefined){
+        all_undefined = false;
         $.each(loadedPurchases, function(i, purchase){
             emitter.emit('buyWithoutPaying', purchase);
         });
     }
     var loadedImages = get('images');
     if (loadedImages !== undefined){
+        all_undefined = false;
         $.each(loadedImages, function(i, image){
             emitter.emit('newImage', image);
         });
+    }
+
+    if( all_undefined ){
+        emitter.emit('message', 'images/messages/happy.png', 
+                                'Welcome to HorseDrawingTycoon', 
+                                'You should start by drawing a horse.',
+                                'http://hrse.pics');
+    }
+    else{
+        emitter.emit('message', 'images/messages/happy.png', 
+                                'Welcome back!', 
+                                'Draw more horses.',
+                                'http://hrse.pics');
     }
 
     emitter.on('update', updateMoney);
@@ -633,12 +651,44 @@ function infinityHorse(emitter){
             success: function(response){
                 console.log("SUCCESS");
                 console.log(response);
+                emitter.emit("message", 
+                            "images/messages/link.png", 
+                            "hrse.pics", 
+                            "<a href='"+response+"' target='_blank'>Here's a link to your horse!</a> Share it with your friends!",
+                            response);
             }
         });
     }
 
     emitter.on('newImage', sendImage);
 }
+
+function horseMessage(element, emitter){
+    var source = $("#modal-message").html();
+    var template = Handlebars.compile(source);
+
+    var message = function(image, title, msg, link){
+        console.log("message", image, title, msg, link);
+        var rendered_template = template({
+            'image': image,
+            'title': title,
+            'message': msg,
+            'link': link,
+        });
+        rendered_template = $(rendered_template);
+        element.append(rendered_template);
+        rendered_template.transition({opacity:1}, 500, 'snap')
+        setTimeout(function(){
+            rendered_template.transition({opacity:0}, 3000, 'snap')
+            setTimeout(function(){
+                rendered_template.remove()
+            }, 3000);
+        }, 3000)
+    }
+
+    emitter.on('message', message);
+}
+
 
 $(function() {
     var emitter = new LucidJS.EventEmitter();
@@ -655,6 +705,7 @@ $(function() {
     storeManager($('.store'), emitter);
     horseDollaDollaBill($('.horsecounter'), emitter);
     chartModal(emitter);
+    horseMessage($(".messages"), emitter);
     stateRunRadio($(".reset"), emitter);
     infinityHorse(emitter);
     

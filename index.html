@@ -92,6 +92,20 @@
         </div>
     </script>
 
+    <script id="modal-message" type="text/x-handlebars">
+        <div class="message" style="opacity:0"> 
+            <a href="{{link}}" target="_blank">
+                <img src="{{image}}" style="background-color:white">
+            </a>
+            <h2>{{title}}</h2>
+            <p>{{{message}}}</p>
+        </div>
+
+    </script>
+
+    <div class="messages">
+    </div>
+
     <div class="main">
         <canvas id="horse" width="700" height="500"></canvas>
         <div class='buttons'>
