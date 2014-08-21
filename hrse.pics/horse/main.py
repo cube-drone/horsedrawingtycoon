@@ -72,13 +72,30 @@ def twitter_photo_card(horse_url):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        results = Horse.query().order(-Horse.added).fetch(1)
+        self.response.headers.add("Content-Type", "text/html")
+
+        self.response.write("<DOCTYPE html>")
+        self.response.write("<html>")
+        self.response.write("<head>")
+        self.response.write("<meta charset='UTF-8'>")
+        self.response.write("<title>HorseTacular Markup Language</title>")
+        self.response.write("</head>")
+        self.response.write("<body>")
+        self.response.write("""
+                            <div style='width:500px; margin:auto;'>
+                            <a class="twitter-timeline" width='500' href="https://twitter.com/infinitehorse" data-widget-id="502247962731245569">Tweets by @infinitehorse</a>
+                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                            </div>
+                            """)
+        self.response.write("</body>")
+        self.response.write("</html>")
+
+    def derp(self):
         if len(results) == 0:
             self.response.write("Hello World")
         else:
             horse = results[0]
             return webapp2.redirect(html_url(horse.key.id()))
-            
 
     def post(self):
         image = self.request.get('image')
@@ -123,17 +140,18 @@ class HtmlHandler(webapp2.RequestHandler):
         img_url = image_url(horse_hash)
         self.response.headers.add("Content-Type", "text/html")
 
-        self.response.write("<DOCTYPE html>");
-        self.response.write("<html>");
-        self.response.write("<head>");
-        self.response.write("<meta charset='UTF-8'>");
-        self.response.write("<title>HorseTacular Markup Language</title>");
-        self.response.write("</head>");
-        self.response.write("<body>");
-        self.response.write("<img src='"+img_url+"'>");
-        self.response.write( twitter_photo_card(img_url) );
-        self.response.write("</body>");
-        self.response.write("</html>");
+        self.response.write("<DOCTYPE html>")
+        self.response.write("<html>")
+        self.response.write("<head>")
+        self.response.write("<meta charset='UTF-8'>")
+        self.response.write("<title>HorseTacular Markup Language</title>")
+        self.response.write("</head>")
+        self.response.write("<body>")
+        self.response.write("<img src='"+img_url+"'>")
+        self.response.write( twitter_photo_card(img_url) )
+        self.response.write("<p style='font-family:Helvetica, Arial, sans-serif'> You, too, can draw horses as <strong>INCREDIMAZING</strong> as this at <a href='http://horsedrawingtycoon.com'>horsedrawingtycoon.com</a></p>")
+        self.response.write("</body>")
+        self.response.write("</html>")
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
