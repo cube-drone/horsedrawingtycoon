@@ -48,13 +48,20 @@
 
 }
 
+.messages{
+    position: fixed;
+    bottom: 0px;
+    width: 500px;
+    margin: auto;
+}
+
 body{
     background: url('../images/design/grey_wash_wall.png') repeat;
     font-family: 'Love Ya Like A Sister', Helvetica, Arial;
 }
 
 .main{
-    margin-left: 400px;
+    margin-left: 350px;
     margin-top: 20px;
 
     canvas{
@@ -120,8 +127,8 @@ body{
         font-size: 35pt;
         img{
             vertical-align: middle;
-            height: 95px;
-            width: 95px;
+            height: 55px;
+            width: 55px;
             margin-top: 0px;
         }
     }

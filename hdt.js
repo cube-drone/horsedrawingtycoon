@@ -1,5 +1,5 @@
 
-var HORSEPICS_SERVER = "http://localhost:8080"
+//var HORSEPICS_SERVER = "http://localhost:8080"
 var HORSEPICS_SERVER = "http://hrse.pics/"
 
 function horsecanvas(element, eventhandler){
@@ -243,16 +243,16 @@ function bin(element, emitter){
 
     function selectBin(toggle, group){
         console.log("selectBin", toggle, group);
-        $(element).find('.visible_bin').transition({x:"0px"}, duration, 'ease');
+        $(element).find('.visible_bin').transition({x:"0px", width:"210px"}, duration, 'ease');
         setTimeout(function(){
             $("."+group).hide();
             $("."+toggle).show();
         }, duration);
-        $(element).find('.visible_bin').transition({x:"200px"}, duration, 'ease');
+        $(element).find('.visible_bin').transition({x:"200px", width:"110px"}, duration, 'ease');
     }
 
     function closeBin(){
-        $(element).find('.visible_bin').transition({x:"0px"}, duration, 'ease');
+        $(element).find('.visible_bin').transition({x:"0px", width:"210px"}, duration, 'ease');
     }
     emitter.on("selectBin", selectBin);
     emitter.on("closeBin", closeBin);
@@ -627,8 +627,6 @@ function infinityHorse(emitter){
 
     emitter.on('newImage', sendImage);
 }
-
-
 
 $(function() {
     var emitter = new LucidJS.EventEmitter();
