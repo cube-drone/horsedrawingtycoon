@@ -14,6 +14,22 @@ var items = { 'argy':
         'background_url': 'images/backgrounds/photoshop.png',
         'background_name': 'Photosharp'
     },
+    'apple':
+    {
+        'id':'apple',
+        'price': 5,
+        'name': 'Apple', 
+        'stamp_url': 'images/stamps/apple.png',
+        'stamp_name': 'Apple',
+        'color1': '#9a1419', 
+        'color1_name': 'Crimson',
+        'color2': '#e92d34',
+        'color2_name': 'Red',
+        'color3': '#2c865b',
+        'color3_name': 'leaf',
+        'background_url': 'images/backgrounds/background_apple.png',
+        'background_name': 'Apple',
+    },
     'palomino':
     {
         'id':'palomino',
@@ -65,19 +81,51 @@ var items = { 'argy':
     'twilight':
     {
         'id':'twilight',
-        'price': 9,
+        'price': 20,
         'name': 'Twilight', 
         'stamp_url': 'images/stamps/twilight.png',
         'stamp_name': 'Mark',
         'color1': '#d098e4', 
-        'color1_name': 'Purple',
+        'color1_name': 'Light urple',
         'color2': '#24386d',
         'color2_name': 'Dark Blue',
         'color3': '#f64188',
         'color3_name': 'Pink',
         'background_url': 'images/backgrounds/little_pony.png',
         'background_name': 'Chestnut',
+    },
+    'hay':
+    {
+        'id':'hay',
+        'price': 25,
+        'name': 'HAY GUYS',
+        'stamp_url': 'images/stamps/hay.png',
+        'stamp_name': 'Hay',
+        'color1': '#faf5a0', 
+        'color1_name': 'Mello Yello',
+        'color2': '#efe63e',
+        'color2_name': 'Superior Yellow',
+        'color3': '#bcb529',
+        'color3_name': 'Mustard Town',
+        'background_url': 'images/backgrounds/field.png',
+        'background_name': 'Field',
+    },
+    'bow':
+    {
+        'id':'bow',
+        'price': 50,
+        'name': 'First Place',
+        'stamp_url': 'images/stamps/bow.png',
+        'stamp_name': 'Bo Derek',
+        'color1': '#f7941d', 
+        'color1_name': 'Burnt Umber',
+        'color2': '#00bff3',
+        'color2_name': 'Nissan Skyline Type R',
+        'color3': '#222222',
+        'color3_name': 'Charcoal',
+        'background_url': 'images/backgrounds/random_horse.png',
+        'background_name': 'Field',
     }
 };
 
-var item_id_list = ['argy', 'palomino', 'bay', 'chestnut', 'twilight'] 
+var item_id_list = ['argy', 'apple', 'palomino', 'bay', 'chestnut', 'twilight', 'hay', 'bow'] 

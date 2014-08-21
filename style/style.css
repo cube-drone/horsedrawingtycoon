@@ -137,7 +137,8 @@ body {
   .store .storestamp {
     width: 125px;
     height: 80px;
-    margin-bottom: 1px solid #666; }
+    margin-bottom: 1px solid #666;
+    background-repeat: no-repeat; }
   .store .storebutton {
     width: 100%; }
   .store .lock {
@@ -216,3 +217,5 @@ body {
     padding: 2px; }
     .stables .trashstable img {
       width: 30px; }
+
+/*# sourceMappingURL=style.css.map */
