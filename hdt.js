@@ -130,7 +130,7 @@ function horsecanvas(element, eventhandler){
         console.log(analysis);
         console.log(horsedollars);
         var img = canvas.toDataURL("image/png");
-        eventhandler.emit('showBreakdown', img, analysis, horsedollars);
+        eventhandler.emit('showBreakdown', img, analysis, horsedollars, stamps);
         eventhandler.emit('newImage', img);
         eventhandler.emit('addMoney', horsedollars);
         eventhandler.emit('clearCanvas');
@@ -486,7 +486,7 @@ function chartModal(emitter){
             }, 1200);
     }
 
-    var showBreakdown = function( img, analysis, horsedollars ){
+    var showBreakdown = function( img, analysis, horsedollars, stamps ){
         var rendered_template = template({'img': img,
                                           'horsedollars': horsedollars});
         $('.main').append( rendered_template );
@@ -588,10 +588,19 @@ function stateRunRadio(element, emitter){
         }
         set('images', images);
     }
+    var addAchievement = function(image, title, msg, link){
+        var achievements = get('achievements');
+        if(achievements === undefined){
+            achievements = [];
+        }
+        achievements.push({'image':image, 'title':title, 'msg':msg, 'link':link});
+        set('achievements', achievements);
+    }
     var reset = function(){
         set('money', 0);
         set('purchases', []);
         set('images', []);
+        set('achievements', []);
         location.reload();
     }
 
@@ -617,6 +626,13 @@ function stateRunRadio(element, emitter){
             emitter.emit('newImage', image);
         });
     }
+    var loadedAchievements = get('achievements');
+    if (loadedAchievements !== undefined){
+        all_undefined = false;
+        $.each(loadedAchievements, function(i, achievement){
+            emitter.emit('addAchievement', achievement.image, achievement.title, achievement.msg, achievement.link)
+        });
+    }
 
     if( all_undefined ){
         emitter.emit('message', 'images/messages/happy.png', 
@@ -635,6 +651,7 @@ function stateRunRadio(element, emitter){
     emitter.on('buy', addPurchase);
     emitter.on('newImage', addImage);
     emitter.on('deleteImage', deleteImage);
+    emitter.on('addAchievement', addAchievement);
     emitter.on('reset', reset);
 
     element.click(reset);
@@ -689,6 +706,193 @@ function horseMessage(element, emitter){
     emitter.on('message', message);
 }
 
+function achievements(element, emitter){
+    var source = $("#achievement-template").html();
+    var template = Handlebars.compile(source);
+
+    var achieved = [];
+
+    var achieve = function(image, title, msg, link){
+        if (achieved.indexOf(title) === -1){
+            emitter.emit( 'message', image, "Achievement: "+title, msg, link );
+            emitter.emit( 'addAchievement', image, title, msg, link );
+            return true;
+        }
+        return false;
+    }
+
+    var lookAtBreakdown = function( img, analysis, horsedollars, stamps ){
+        if (achieve("images/messages/number_one.png", 
+                "First Horse Drawing",
+                "draw one horse", 
+                "https://www.youtube.com/watch?v=6zZlQ1WSn5U")){
+            return;
+        }
+
+        if( analysis.dominant_color === '#000000' ){
+            if( achieve("images/messages/red_door.png",
+                    "I See A Red Door", 
+                    "paint a horse with black as the dominant color",
+                    "https://www.youtube.com/watch?v=u6d8eKvegLI")){
+                return;
+            }
+        }
+        if( analysis.secondary_color === '#000000' ){
+            if( achieve("images/messages/dark_horse.png",
+                    "Dark Horse",
+                    "paint a horse with black as the secondary color",
+                    "https://www.youtube.com/watch?v=sXJXLq1lN7U") ){
+                return;
+            }
+        }
+        if( analysis.dominant_color === '#FF0000' ){
+            if( achieve("images/messages/red.png",
+                    "Well Red",
+                    "paint a horse with red as the dominant color",
+                    "https://www.youtube.com/watch?v=1eJhAR5tQg0")){
+                return;
+            }
+        }
+        if( analysis.dominant_color === '#0000FF' ){
+            if( achieve("images/messages/blue.png",
+                    "Blue",
+                    "paint a horse with blue as the dominant color",
+                    "https://www.youtube.com/watch?v=_43cq3DalZw")){
+                return;
+            }
+        }
+        if( analysis.dominant_color === '#00FF00' ){
+            if( achieve("images/messages/green.png",
+                    "Green",
+                    "paint a horse with green as the dominant color",
+                    "https://www.youtube.com/watch?v=ndiD8V7zpAs")){
+                return;
+            }
+        }
+        if( Object.keys(analysis.colorhistogram).length > 8 &&
+            analysis.dominant_color === "#FFFFFF" &&
+            stamps.length === 0){
+            if( achieve("images/messages/rainbow.png",
+                    "Rainbow",
+                    "use many different colours, no background, and no stamps",
+                    "https://www.youtube.com/watch?v=ZJrXvuVi9ww")){
+                return;
+            }
+        }
+        if( analysis.dominant_color === "#999999" ){
+            if( achieve("images/messages/derpy.png",
+                    "Derpy",
+                    "paint a horse with gray as the primary color",
+                    "https://www.youtube.com/watch?v=XaRlNbVFlUA")){
+                return;
+            }
+        }
+        if( analysis.secondary_color === "#999999" ){
+            if( achieve("images/messages/stupid_robot.png",
+                    "Stupid Robot",
+                    "paint a horse with grey as the secondary color",
+                    "https://www.youtube.com/watch?v=ASoCJTYgYB0")){
+                return;
+            }
+        }
+        if( horsedollars === 9){
+            if( achieve("images/messages/horsebux.png",
+                    "Horse Dolla Dolla Bill", 
+                    "draw a picture that's worth 9 HorseBux",
+                    "https://www.youtube.com/watch?v=sXJXLq1lN7U")){
+                return;
+            }
+        }
+        if( horsedollars === 6){
+            if( achieve("images/messages/six.png",
+                    "Two Out of Three Ain't Bad",
+                    "draw a picture that's worth 6 HorseBux",
+                    "https://www.youtube.com/watch?v=k5hWWe-ts2s")){
+                return;
+            }
+        }
+        if( horsedollars === 5){
+            if( achieve("images/messages/five.png",
+                    "The Highest of Fives",
+                    "draw a picture that's worth 5 HorseBux",
+                    "https://www.youtube.com/watch?v=CZxen5QKwkE&t=9m50s")){
+                return;
+            }
+        }
+        if( horsedollars === 1){
+             if( achieve("images/messages/one.png",
+                    "The Loneliest Number",
+                    "draw a picture that's worth 1 HorseBux",
+                    "https://www.youtube.com/watch?v=22QYriWAF-U")){
+                return;
+             }
+        }
+        if( horsedollars === 0){
+            if( achieve("images/messages/aw_no.png",
+                    "The HorseRank Algorithm Taketh Away",
+                    "draw a picture that's worth 0 HorseBux",
+                    "https://www.youtube.com/watch?v=DN43sCyEanA")){
+                return;
+            }
+        }
+        if( stamps.length >= 20 ){
+            if( achieve("images/messages/stampy.png",
+                    "Attaboy, Stampy!",
+                    "use more than 19 stamps in one image",
+                    "https://www.youtube.com/watch?v=JoAiyUduyrY")){
+                return;
+            }
+        }
+        if( stamps.length >= 40 ){
+            if( achieve("images/messages/stampy.png",
+                    "STAMPEDE!",
+                    "use more than 39 stamps in one image",
+                    "https://www.youtube.com/watch?v=AaaBgDbKQhM")){
+                return;
+            }
+        }
+        if( stamps.length >= 60 ){
+            if( achieve("images/messages/stampy.png",
+                    "Too Many Stamps",
+                    "seriously, cool it with the stamps. that's enough.",
+                    "https://www.youtube.com/watch?v=WsepYhFqFfc")){
+                return;
+            }
+        }
+        if( stamps.indexOf('images/stamps/argy_bee.png') > 0 ){
+            if( achieve("images/messages/bee.png",
+                        "Bees! BEES!",
+                        "Use the Argy Bee stamp.",
+                        "https://www.youtube.com/watch?v=GNhoFaHU3_A") ){
+                return;
+            }
+        }
+        if( stamps.indexOf('images/stamps/bow.png') > 0 ){
+            if( achieve("images/messages/whoa.png",
+                        "The Prettiest Girl in Brooklyn.",
+                        "Use the most expensive stamp in the game.",
+                        "https://www.youtube.com/watch?v=rFWb7DG7zTc") ){
+                return;
+            }
+        }
+    }
+
+    var addAchievement = function( image, title, msg, link ){
+        console.log("achievement", image, title, msg, link);
+        achieved.push(title);
+        var rendered_template = template({
+            'image': image,
+            'title': title,
+            'message': msg,
+            'link': link,
+        });
+        rendered_template = $(rendered_template);
+        element.append(rendered_template);
+    }
+
+    emitter.on('showBreakdown', lookAtBreakdown)
+    emitter.on('addAchievement', addAchievement)
+}
 
 $(function() {
     var emitter = new LucidJS.EventEmitter();
@@ -704,6 +908,7 @@ $(function() {
     stableSelector($('.stables'), emitter);
     storeManager($('.store'), emitter);
     horseDollaDollaBill($('.horsecounter'), emitter);
+    achievements($('.achievements'), emitter);
     chartModal(emitter);
     horseMessage($(".messages"), emitter);
     stateRunRadio($(".reset"), emitter);

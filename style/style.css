@@ -68,7 +68,7 @@
 
 body {
   background: url("../images/design/grey_wash_wall.png") repeat;
-  font-family: 'Love Ya Like A Sister', Helvetica, Arial; }
+  font-family: 'Roboto', Helvetica, Arial; }
 
 .main {
   margin-left: 350px;
@@ -94,6 +94,11 @@ body {
     margin: 0;
     padding: 5px;
     overflow: scroll; }
+    .left .hidden_bin h3 {
+      text-align: center;
+      color: #666;
+      border-bottom: 2px dashed #999;
+      margin-bottom: 20px; }
   .left .visible_bin {
     position: fixed;
     padding: 10px;
@@ -240,3 +245,24 @@ body {
     padding: 2px; }
     .stables .trashstable img {
       width: 30px; }
+
+.achievements {
+  padding-left: 0; }
+  .achievements .achievement {
+    list-style-type: none;
+    margin-top: 10px;
+    color: #666;
+    border-bottom: 2px dashed #999; }
+    .achievements .achievement img {
+      float: left;
+      width: 50px;
+      border: 2px solid #666;
+      margin-right: 10px; }
+    .achievements .achievement h2 {
+      padding-top: 3px;
+      margin-top: 0;
+      font-size: large;
+      margin-bottom: 5px; }
+    .achievements .achievement p {
+      margin-top: 5px;
+      margin-bottom: 5px; }

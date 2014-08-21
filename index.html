@@ -100,7 +100,16 @@
             <h2>{{title}}</h2>
             <p>{{{message}}}</p>
         </div>
+    </script>
 
+    <script id="achievement-template" type="text/x-handlebars">
+        <li class='achievement'>
+            <a href="{{link}}" target="_blank">
+                <img src='{{image}}'>
+            </a>
+            <h2>{{title}}</h2>
+            <p>{{message}}</p>
+        </li>
     </script>
 
     <div class="messages">
@@ -168,6 +177,16 @@
                 <li class='background' style='background-image: url("images/backgrounds/linedpaper.png")' data-url="images/backgrounds/linedpaper.png" title="Lined Paper"></li>
                 <li class='background' style='background-image: url("images/backgrounds/grey.png")' data-url="images/backgrounds/grey.png" title="Grey Grid"></li>
             </ul>
+            <ul class='achievements bins' style='display:none;'>
+                <li class='title'>
+                    <h3> Achievements </h3>
+                </li>
+                <li class='achievement'>
+                    <img src='images/messages/link.png'>
+                    <h2>Consolation Prize</h2>
+                    <p>Start the game. </p>
+                </li>
+            </ul>
         </div>
         <nav class='visible_bin'>
             <div class='toggle horsecoins' data-toggle='store' data-group='bins' title='HorseDollars'>
@@ -185,6 +204,9 @@
             </h2>
             <h2 class='toggle' data-group='bins' data-toggle='backgrounds' title='Backgrounds'>
                 <img src="images/design/background.png">
+            </h2>
+            <h2 class='toggle' data-group='bins' data-toggle='achievements' title='Achievements'>
+                <img src="images/design/achievements.png">
             </h2>
         </nav>
     </div>
